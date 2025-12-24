@@ -33,7 +33,7 @@ canvas{
 header{
   background:rgba(0,0,0,.55);
   backdrop-filter:blur(6px);
-  padding:15px;
+  padding:14px 20px;
   position:relative;
   z-index:2;
   border-bottom:1px solid rgba(255,0,51,.25);
@@ -42,17 +42,19 @@ header{
 .top{
   display:flex;
   align-items:center;
-  justify-content:center;
+  justify-content:flex-start;
   gap:14px;
 }
 
 .top img{
   height:55px;
+  width:auto;
 }
 
 .brand{
-  font-size:23px;
+  font-size:22px;
   font-weight:700;
+  letter-spacing:1px;
 }
 
 /* HERO */
@@ -65,13 +67,13 @@ header{
 
 .hero h1{
   color:#ff0033;
-  font-size:28px;
+  font-size:30px;
 }
 
 .hero p{
   color:#ddd;
-  max-width:500px;
-  margin:10px auto 30px;
+  max-width:520px;
+  margin:12px auto 30px;
   font-size:15px;
 }
 
@@ -147,37 +149,13 @@ footer{
 
 <canvas id="particles"></canvas>
 
-/* HEADER */
-header{
-  background:rgba(0,0,0,.55);
-  backdrop-filter:blur(6px);
-  padding:14px 20px;
-  position:relative;
-  z-index:2;
-  border-bottom:1px solid rgba(255,0,51,.25);
-}
+<header>
+  <div class="top">
+    <img src="logo.png" alt="Logo BrusMods">
+    <span class="brand">BrusMods</span>
+  </div>
+</header>
 
-/* CONTENEDOR */
-.top{
-  display:flex;
-  align-items:center;
-  justify-content:flex-start; /* 👈 A LA IZQUIERDA */
-  gap:14px;
-}
-
-/* LOGO */
-.top img{
-  height:52px;   /* tamaño del logo */
-  width:auto;
-  display:block;
-}
-
-/* TEXTO */
-.brand{
-  font-size:22px;
-  font-weight:700;
-  letter-spacing:1px;
-}
 <section class="hero">
   <h1>Bienvenido a BRUSMODS</h1>
   <p>Mods, herramientas y contenido exclusivo con estilo premium.</p>
