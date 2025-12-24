@@ -133,10 +133,10 @@ buttons.forEach(btn=>{
     loaderBar.style.width="0%";
     let width=0;
     const interval=setInterval(()=>{
-      width+=3;
+      width+=1;
       loaderBar.style.width=width+"%";
       if(width>=100){clearInterval(interval);window.location.href=url;}
-    },20);
+    },30);
   });
 });
 
