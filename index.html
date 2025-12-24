@@ -6,15 +6,10 @@
 <title>BRUSMODS</title>
 <meta name="theme-color" content="#7f1d1d">
 <style>
-:root{
-  --primary-color: #ff0033;
-  --secondary-color: #ff66aa;
-  --bg-gradient-start: #7f1d1d;
-  --bg-gradient-end: #000000;
-}
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
 *{box-sizing:border-box;font-family:'Poppins',system-ui;}
-body{margin:0;background:radial-gradient(circle at top,var(--bg-gradient-start),var(--bg-gradient-end));color:#fff;overflow-x:hidden;}
+body{margin:0;background:radial-gradient(circle at top,#7f1d1d,#000);color:#fff;overflow-x:hidden;}
 canvas{position:fixed;inset:0;z-index:0;}
 
 /* HEADER */
@@ -23,23 +18,23 @@ header{background:rgba(0,0,0,.55);backdrop-filter:blur(6px);padding:15px 20px;po
 .top img{height:55px;}
 .brand{font-size:23px;font-weight:700;}
 .menu-btn{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;height:22px;width:28px;}
-.menu-btn span{display:block;height:3px;width:100%;background:var(--primary-color);border-radius:2px;}
+.menu-btn span{display:block;height:3px;width:100%;background:#ff0033;border-radius:2px;}
 .side-menu{position:fixed;top:0;right:-260px;width:260px;height:100vh;background:rgba(0,0,0,.95);backdrop-filter:blur(10px);padding:25px;z-index:5;transition:.35s ease;border-left:1px solid rgba(255,0,51,.3);}
 .side-menu.active{right:0;}
-.side-menu h3{color:var(--primary-color);margin-top:0.5em;margin-bottom:20px;padding-right:30px;position:relative;}
+.side-menu h3{color:#ff0033;margin-top:25px;margin-bottom:20px;} /* Separamos del top */
 .side-menu a{display:block;color:#fff;text-decoration:none;margin:15px 0;font-weight:500;}
-.side-menu a:hover{color:var(--primary-color);}
-.close-menu{position:absolute;top:10px;right:15px;background:none;border:none;color:var(--primary-color);font-size:26px;font-weight:700;cursor:pointer;}
+.side-menu a:hover{color:#ff0033;}
+.close-menu{position:absolute;top:10px;right:15px;background:none;border:none;color:#ff0033;font-size:26px;font-weight:700;cursor:pointer;}
 .close-menu:hover{transform:scale(1.1);}
 
 /* HERO */
 .hero{position:relative;z-index:2;text-align:center;padding:60px 20px 40px;}
-.hero h1{color:var(--primary-color);font-size:28px;}
+.hero h1{color:#ff0033;font-size:28px;}
 .hero p{color:#ddd;max-width:500px;margin:10px auto 30px;}
 
 /* BOTONES NEON */
-.btn-neon{padding:15px 26px;border-radius:14px;border:2px solid var(--primary-color);background:transparent;color:var(--primary-color);font-size:15px;font-weight:600;cursor:pointer;transition:.3s;display:inline-block;text-decoration:none;}
-.btn-neon:hover{color:#fff;box-shadow:0 0 20px var(--primary-color),0 0 40px var(--secondary-color);}
+.btn-neon{padding:15px 26px;border-radius:14px;border:2px solid #ff0033;background:transparent;color:#ff0033;font-size:15px;font-weight:600;cursor:pointer;transition:.3s;display:inline-block;text-decoration:none;}
+.btn-neon:hover{color:#fff;box-shadow:0 0 20px #ff0033,0 0 40px #ff66aa;}
 
 /* SECCIÓN */
 .section{position:relative;z-index:2;max-width:1000px;margin:40px auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
@@ -51,18 +46,16 @@ footer{text-align:center;padding:25px;font-size:12px;color:#ffb3b3;opacity:.8;po
 /* LOADER BARRA */
 #loader{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:999;}
 .loader-container{width:300px;text-align:center;}
-.loader-bar{width:0%;height:8px;background:linear-gradient(90deg,var(--primary-color),var(--secondary-color));border-radius:4px;box-shadow:0 0 10px var(--primary-color),0 0 20px var(--secondary-color);transition:width 0.1s linear;}
-.loader-text{color:#fff;margin-top:12px;font-size:16px;font-weight:700;letter-spacing:1px;text-shadow:0 0 5px var(--primary-color),0 0 10px var(--secondary-color);}
+.loader-bar{width:0%;height:8px;background:linear-gradient(90deg,#ff0033,#ff66aa);border-radius:4px;box-shadow:0 0 10px #ff0033,0 0 20px #ff66aa;transition:width 0.1s linear;}
+.loader-text{color:#fff;margin-top:12px;font-size:16px;font-weight:700;letter-spacing:1px;text-shadow:0 0 5px #ff0033,0 0 10px #ff66aa;}
 
 /* AJUSTES BOTON */
-#themeBtn{margin-top:10px;padding:10px 15px;border-radius:10px;background:var(--primary-color);border:none;color:#fff;font-weight:600;cursor:pointer;}
-#musicToggleBtn{margin-top:5px;padding:10px 15px;border-radius:10px;background:var(--primary-color);border:none;color:#fff;font-weight:600;cursor:pointer;}
+#musicToggleBtn{margin-top:10px;padding:10px 15px;border-radius:10px;background:#ff0033;border:none;color:#fff;font-weight:600;cursor:pointer;}
 </style>
 </head>
 <body>
 
 <canvas id="particles"></canvas>
-
 <audio id="backgroundMusic" loop src="musica.m4a"></audio>
 
 <header>
@@ -82,13 +75,12 @@ footer{text-align:center;padding:25px;font-size:12px;color:#ffb3b3;opacity:.8;po
   <a href="https://chat.whatsapp.com/CkN3rWTIQeHF293yhpWkLb">Canal WhatsApp</a>
   <h3>⚙️ Ajustes del menú</h3>
   <button id="musicToggleBtn">Apagar Música</button>
-  <button id="themeBtn">Cambiar Colores</button>
 </div>
 
 <section class="hero">
   <h1>Bienvenido a BRUSMODS</h1>
   <p>Mods completamente Gratis</p>
-  <a href="https://brusmods.github.io/Apkmods/" class="btn-neon">Ver Mods</a>
+  <a href="https://brusmods.github.io/Apkmods/" class="btn-neon loader-btn">Ver Mods</a>
 </section>
 
 <section class="section">
@@ -127,47 +119,16 @@ menuBtn.addEventListener("click",()=>sideMenu.classList.add("active"));
 closeMenu.addEventListener("click",()=>sideMenu.classList.remove("active"));
 
 // PARTICLES
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-let sparks = [];
-function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+let sparks=[];
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
 window.addEventListener("resize",resize);resize();
-
-for(let i=0;i<120;i++){
-  sparks.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*3,vy:(Math.random()-.5)*3,life:Math.random()*100});
-}
-
-function animate(){
-  const bgGradient = ctx.createRadialGradient(canvas.width/2,canvas.height/2,0,canvas.width/2,canvas.height/2,canvas.height);
-  const bgStart = getComputedStyle(document.documentElement).getPropertyValue('--bg-gradient-start').trim();
-  const bgEnd = getComputedStyle(document.documentElement).getPropertyValue('--bg-gradient-end').trim();
-  bgGradient.addColorStop(0,bgStart);
-  bgGradient.addColorStop(1,bgEnd);
-  ctx.fillStyle = bgGradient;
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-
-  const primary = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
-  const secondary = getComputedStyle(document.documentElement).getPropertyValue('--secondary-color').trim();
-
-  sparks.forEach((s,i)=>{
-    s.x+=s.vx;
-    s.y+=s.vy;
-    s.life--;
-    if(s.life<=0){
-      s.x=Math.random()*canvas.width;
-      s.y=Math.random()*canvas.height;
-      s.life=100;
-      s.vx=(Math.random()-.5)*3;
-      s.vy=(Math.random()-.5)*3;
-    }
-    ctx.fillStyle=i%2===0?primary:secondary;
-    ctx.fillRect(s.x,s.y,2,2);
-  });
-  requestAnimationFrame(animate);
-}
+for(let i=0;i<120;i++){sparks.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*3,vy:(Math.random()-.5)*3,life:Math.random()*100});}
+function animate(){ctx.fillStyle="rgba(0,0,0,0.15)";ctx.fillRect(0,0,canvas.width,canvas.height);sparks.forEach(s=>{s.x+=s.vx;s.y+=s.vy;s.life--;if(s.life<=0){s.x=Math.random()*canvas.width;s.y=Math.random()*canvas.height;s.life=100;}ctx.fillStyle="#ff0033";ctx.fillRect(s.x,s.y,2,2);});requestAnimationFrame(animate);}
 animate();
 
-// LOADER BARRA SOLO EN BOTONES DE INICIO
+// LOADER SOLO BOTONES DE INICIO
 const loader=document.getElementById("loader");
 const loaderBar=loader.querySelector(".loader-bar");
 document.querySelectorAll(".loader-btn").forEach(btn=>{
@@ -191,31 +152,13 @@ window.addEventListener("DOMContentLoaded",hideLoader);
 window.addEventListener("pageshow",e=>{if(e.persisted)hideLoader();});
 
 // MÚSICA
-const backgroundMusic = document.getElementById("backgroundMusic");
-let musicOn = true;
-backgroundMusic.volume = 0.3; 
-backgroundMusic.play().catch(()=>{}); // autoplay (puede pedir interacción en algunos navegadores)
-const musicToggleBtn = document.getElementById("musicToggleBtn");
-musicToggleBtn.addEventListener("click",()=>{
-  if(musicOn){backgroundMusic.pause(); musicOn=false; musicToggleBtn.textContent="Encender Música";}
-  else{backgroundMusic.play(); musicOn=true; musicToggleBtn.textContent="Apagar Música";}
-});
-
-// CAMBIAR COLORES
-const themeBtn = document.getElementById("themeBtn");
-const themes = [
-  {primary:"#ff0033", secondary:"#ff66aa", bgStart:"#7f1d1d", bgEnd:"#000"},
-  {primary:"#00ff99", secondary:"#33ffcc", bgStart:"#003300", bgEnd:"#001100"},
-  {primary:"#ffcc00", secondary:"#ffaa00", bgStart:"#331a00", bgEnd:"#000000"}
-];
-let themeIndex=0;
-themeBtn.addEventListener("click",()=>{
-  themeIndex=(themeIndex+1)%themes.length;
-  const t=themes[themeIndex];
-  document.documentElement.style.setProperty('--primary-color',t.primary);
-  document.documentElement.style.setProperty('--secondary-color',t.secondary);
-  document.documentElement.style.setProperty('--bg-gradient-start',t.bgStart);
-  document.documentElement.style.setProperty('--bg-gradient-end',t.bgEnd);
+const backgroundMusic=document.getElementById("backgroundMusic");
+backgroundMusic.volume=0.3;
+backgroundMusic.play().catch(()=>{}); // autoplay
+let musicOn=true;
+document.getElementById("musicToggleBtn").addEventListener("click",()=>{
+  if(musicOn){backgroundMusic.pause();musicOn=false;document.getElementById("musicToggleBtn").textContent="Encender Música";}
+  else{backgroundMusic.play();musicOn=true;document.getElementById("musicToggleBtn").textContent="Apagar Música";}
 });
 </script>
 
