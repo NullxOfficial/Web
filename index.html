@@ -355,40 +355,36 @@ function animate(){
   requestAnimationFrame(animate);
 }
 animate();
-
-/* LOADER PARA BOTONES */
-const buttons = document.querySelectorAll('.btn-neon');
-const loader = document.getElementById('loader');
-const loaderBar = loader.querySelector('.loader-bar');
+// LOADER BARRA
+const loader = document.getElementById("loader");
+const buttons = document.querySelectorAll(".btn-neon");
 
 buttons.forEach(btn => {
-  btn.addEventListener('click', (e)=>{
-    e.preventDefault();
-    const url = btn.getAttribute('href');
+  btn.addEventListener("click", e => {
+    const url = btn.getAttribute("href");
 
-    loader.style.display = 'flex';
-    loaderBar.style.width = '0%';
-    
-    let width = 0;
-    const interval = setInterval(()=>{
-      width += 1;
-      loaderBar.style.width = width + '%';
-      if(width >= 100){
-        clearInterval(interval);
-        window.location.href = url;
-      }
-    }, 25);
+    // Detectar si es un enlace externo
+    const isExternal = url.startsWith("http") && !url.includes(location.hostname);
+
+    if (isExternal) {
+      // Abrir externo sin loader
+      return; // No hacemos nada, solo deja que abra el link
+    }
+
+    e.preventDefault(); // Solo previene si es interno
+    loader.style.display = "flex";
+
+    setTimeout(() => {
+      window.location.href = url;
+    }, 1500); // Tiempo de loader
   });
 });
-// Ocultar loader al cargar la página o al volver con botón atrás
+
+// Ocultar loader al cargar o volver
 function hideLoader() {
-  loader.style.display = 'none';
-  loaderBar.style.width = '0%';
+  loader.style.display = "none";
 }
-
-window.addEventListener('DOMContentLoaded', hideLoader);
-window.addEventListener('pageshow', (event) => {
-  if (event.persisted) hideLoader(); // si viene del cache del navegador
+window.addEventListener("DOMContentLoaded", hideLoader);
+window.addEventListener("pageshow", (e) => {
+  if (e.persisted) hideLoader(); // Volver desde cache
 });
-</script>
-
