@@ -37,6 +37,9 @@ header{
   position:relative;
   z-index:2;
   border-bottom:1px solid rgba(255,0,51,.25);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
 .top{
@@ -56,14 +59,14 @@ header{
 
 /* BOTÓN HAMBURGUESA */
 .menu-btn{
-  position:absolute;
-  right:20px;
-  top:20px;
-  width:32px;
-  height:24px;
   background:none;
   border:none;
   cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  height:22px;
+  width:28px;
 }
 
 .menu-btn span{
@@ -71,7 +74,6 @@ header{
   height:3px;
   width:100%;
   background:#ff0033;
-  margin:5px 0;
   border-radius:2px;
 }
 
@@ -111,6 +113,23 @@ header{
   color:#ff0033;
 }
 
+/* BOTÓN CERRAR */
+.close-menu{
+  position:absolute;
+  top:15px;
+  right:15px;
+  background:none;
+  border:none;
+  color:#ff0033;
+  font-size:26px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.close-menu:hover{
+  transform:scale(1.1);
+}
+
 /* HERO */
 .hero{
   position:relative;
@@ -141,6 +160,8 @@ header{
   font-weight:600;
   cursor:pointer;
   transition:.3s;
+  display:inline-block;
+  text-decoration:none;
 }
 
 .btn-neon:hover{
@@ -188,7 +209,7 @@ footer{
 
 <header>
   <div class="top">
-    <img src="logo.png">
+    <img src="logo.png" alt="Logo BrusMods">
     <span class="brand">BrusMods</span>
   </div>
 
@@ -198,6 +219,7 @@ footer{
 </header>
 
 <div class="side-menu" id="sideMenu">
+  <button class="close-menu" id="closeMenu">✖</button>
   <h3>⚙️ Menú</h3>
   <a href="TU_LINK_AQUI">Inicio</a>
   <a href="TU_LINK_AQUI">Mods VIP</a>
@@ -234,12 +256,17 @@ footer{
 <footer>© 2025 BRUSMODS</footer>
 
 <script>
-/* MENÚ */
+/* MENÚ LATERAL */
 const menuBtn = document.getElementById("menuBtn");
 const sideMenu = document.getElementById("sideMenu");
+const closeMenu = document.getElementById("closeMenu");
 
 menuBtn.addEventListener("click", ()=>{
-  sideMenu.classList.toggle("active");
+  sideMenu.classList.add("active");
+});
+
+closeMenu.addEventListener("click", ()=>{
+  sideMenu.classList.remove("active");
 });
 
 /* PARTICLES */
