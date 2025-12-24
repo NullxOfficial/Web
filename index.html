@@ -6,16 +6,13 @@
 <title>BRUSMODS</title>
 <meta name="theme-color" content="#7f1d1d">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
-/* VARIABLES DE COLOR */
-:root {
+:root{
   --primary-color: #ff0033;
   --secondary-color: #ff66aa;
   --bg-gradient-start: #7f1d1d;
-  --bg-gradient-end: #000;
+  --bg-gradient-end: #000000;
 }
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 *{box-sizing:border-box;font-family:'Poppins',system-ui;}
 body{margin:0;background:radial-gradient(circle at top,var(--bg-gradient-start),var(--bg-gradient-end));color:#fff;overflow-x:hidden;}
 canvas{position:fixed;inset:0;z-index:0;}
@@ -29,12 +26,10 @@ header{background:rgba(0,0,0,.55);backdrop-filter:blur(6px);padding:15px 20px;po
 .menu-btn span{display:block;height:3px;width:100%;background:var(--primary-color);border-radius:2px;}
 .side-menu{position:fixed;top:0;right:-260px;width:260px;height:100vh;background:rgba(0,0,0,.95);backdrop-filter:blur(10px);padding:25px;z-index:5;transition:.35s ease;border-left:1px solid rgba(255,0,51,.3);}
 .side-menu.active{right:0;}
-.side-menu h3{color:var(--primary-color);margin-bottom:20px;}
-.side-menu h4{color:var(--primary-color);margin-bottom:10px;font-weight:600;}
+.side-menu h3{color:var(--primary-color);margin-top:0.5em;margin-bottom:20px;padding-right:30px;position:relative;}
 .side-menu a{display:block;color:#fff;text-decoration:none;margin:15px 0;font-weight:500;}
 .side-menu a:hover{color:var(--primary-color);}
-.side-menu button{width:100%;margin:5px 0;}
-.close-menu{position:absolute;top:15px;right:15px;background:none;border:none;color:var(--primary-color);font-size:26px;font-weight:700;cursor:pointer;}
+.close-menu{position:absolute;top:10px;right:15px;background:none;border:none;color:var(--primary-color);font-size:26px;font-weight:700;cursor:pointer;}
 .close-menu:hover{transform:scale(1.1);}
 
 /* HERO */
@@ -58,11 +53,17 @@ footer{text-align:center;padding:25px;font-size:12px;color:#ffb3b3;opacity:.8;po
 .loader-container{width:300px;text-align:center;}
 .loader-bar{width:0%;height:8px;background:linear-gradient(90deg,var(--primary-color),var(--secondary-color));border-radius:4px;box-shadow:0 0 10px var(--primary-color),0 0 20px var(--secondary-color);transition:width 0.1s linear;}
 .loader-text{color:#fff;margin-top:12px;font-size:16px;font-weight:700;letter-spacing:1px;text-shadow:0 0 5px var(--primary-color),0 0 10px var(--secondary-color);}
+
+/* AJUSTES BOTON */
+#themeBtn{margin-top:10px;padding:10px 15px;border-radius:10px;background:var(--primary-color);border:none;color:#fff;font-weight:600;cursor:pointer;}
+#musicToggleBtn{margin-top:5px;padding:10px 15px;border-radius:10px;background:var(--primary-color);border:none;color:#fff;font-weight:600;cursor:pointer;}
 </style>
 </head>
 <body>
 
 <canvas id="particles"></canvas>
+
+<audio id="backgroundMusic" loop src="musica.m4a"></audio>
 
 <header>
   <div class="top">
@@ -74,23 +75,14 @@ footer{text-align:center;padding:25px;font-size:12px;color:#ffb3b3;opacity:.8;po
 
 <div class="side-menu" id="sideMenu">
   <button class="close-menu" id="closeMenu">✖</button>
-  <h3 style="margin-top:0.5em;">⚙️ Menú</h3>
-  
-  <!-- AJUSTES DEL MENÚ -->
-  <h4>🔊 Ajustes del Menú</h4>
-  <button id="musicToggle" class="btn-neon">Apagar Música</button>
-  
-  <h4>🎨 Cambiar Color</h4>
-  <button class="colorBtn btn-neon" data-theme="1">Rojo</button>
-  <button class="colorBtn btn-neon" data-theme="2">Verde</button>
-  <button class="colorBtn btn-neon" data-theme="3">Azul</button>
-  <button class="colorBtn btn-neon" data-theme="4">Morado</button>
-  <button class="colorBtn btn-neon" data-theme="5">Naranja</button>
-
+  <h3>⚙️ Menú</h3>
   <a href="https://brusmods.github.io/Mi-p-gina-web/">Inicio</a>
   <a href="https://brusmods.github.io/En-mantenimiento-/">Mods VIP</a>
   <a href="https://brusmods.github.io/Mi-p-gina-web/">Herramientas</a>
   <a href="https://chat.whatsapp.com/CkN3rWTIQeHF293yhpWkLb">Canal WhatsApp</a>
+  <h3>⚙️ Ajustes del menú</h3>
+  <button id="musicToggleBtn">Apagar Música</button>
+  <button id="themeBtn">Cambiar Colores</button>
 </div>
 
 <section class="hero">
@@ -103,32 +95,28 @@ footer{text-align:center;padding:25px;font-size:12px;color:#ffb3b3;opacity:.8;po
   <div class="card">
     <h3>🔥 MODS VIP</h3>
     <p>Acceso exclusivo a mods premium.</p>
-    <a href="https://brusmods.github.io/En-mantenimiento-/" class="btn-neon">Entrar</a>
+    <a href="https://brusmods.github.io/En-mantenimiento-/" class="btn-neon loader-btn">Entrar</a>
   </div>
   <div class="card">
     <h3>🛠 HERRAMIENTAS</h3>
     <p>Apps y utilidades optimizadas.</p>
-    <a href="https://brusmods.github.io/En-mantenimiento-/" class="btn-neon">Ver</a>
+    <a href="https://brusmods.github.io/En-mantenimiento-/" class="btn-neon loader-btn">Ver</a>
   </div>
   <div class="card">
     <h3>📢 MI CANAL WHATSAPP</h3>
     <p>Únete a la comunidad oficial.</p>
-    <a href="https://chat.whatsapp.com/CkN3rWTIQeHF293yhpWkLb" class="btn-neon">Canal</a>
+    <a href="https://chat.whatsapp.com/CkN3rWTIQeHF293yhpWkLb" class="btn-neon loader-btn">Canal</a>
   </div>
 </section>
 
 <footer>© 2025 BRUSMODS</footer>
 
-<!-- LOADER -->
 <div id="loader">
   <div class="loader-container">
     <div class="loader-bar"></div>
     <div class="loader-text">Cargando...</div>
   </div>
 </div>
-
-<!-- AUDIO -->
-<audio id="backgroundMusic" src="musica.m4a" loop autoplay></audio>
 
 <script>
 // MENÚ
@@ -142,21 +130,26 @@ closeMenu.addEventListener("click",()=>sideMenu.classList.remove("active"));
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 let sparks = [];
-function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
 window.addEventListener("resize",resize);resize();
+
 for(let i=0;i<120;i++){
-  sparks.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    vx:(Math.random()-.5)*3,
-    vy:(Math.random()-.5)*3,
-    life:Math.random()*100
-  });
+  sparks.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*3,vy:(Math.random()-.5)*3,life:Math.random()*100});
 }
+
 function animate(){
-  ctx.fillStyle="rgba(0,0,0,0.15)";
+  const bgGradient = ctx.createRadialGradient(canvas.width/2,canvas.height/2,0,canvas.width/2,canvas.height/2,canvas.height);
+  const bgStart = getComputedStyle(document.documentElement).getPropertyValue('--bg-gradient-start').trim();
+  const bgEnd = getComputedStyle(document.documentElement).getPropertyValue('--bg-gradient-end').trim();
+  bgGradient.addColorStop(0,bgStart);
+  bgGradient.addColorStop(1,bgEnd);
+  ctx.fillStyle = bgGradient;
   ctx.fillRect(0,0,canvas.width,canvas.height);
-  sparks.forEach(s=>{
+
+  const primary = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
+  const secondary = getComputedStyle(document.documentElement).getPropertyValue('--secondary-color').trim();
+
+  sparks.forEach((s,i)=>{
     s.x+=s.vx;
     s.y+=s.vy;
     s.life--;
@@ -164,33 +157,31 @@ function animate(){
       s.x=Math.random()*canvas.width;
       s.y=Math.random()*canvas.height;
       s.life=100;
+      s.vx=(Math.random()-.5)*3;
+      s.vy=(Math.random()-.5)*3;
     }
-    ctx.fillStyle="var(--primary-color)";
+    ctx.fillStyle=i%2===0?primary:secondary;
     ctx.fillRect(s.x,s.y,2,2);
   });
   requestAnimationFrame(animate);
 }
 animate();
 
-// LOADER SOLO PARA BOTONES CON HREF
-const loader = document.getElementById("loader");
-const loaderBar = loader.querySelector(".loader-bar");
-const buttons = document.querySelectorAll(".btn-neon[href]");
-buttons.forEach(btn=>{
-  btn.addEventListener("click", e=>{
+// LOADER BARRA SOLO EN BOTONES DE INICIO
+const loader=document.getElementById("loader");
+const loaderBar=loader.querySelector(".loader-bar");
+document.querySelectorAll(".loader-btn").forEach(btn=>{
+  btn.addEventListener("click",e=>{
     e.preventDefault();
-    const url = btn.getAttribute("href");
-    loader.style.display = "flex";
-    loaderBar.style.width = "0%";
-    let width = 0;
-    const interval = setInterval(()=>{
-      width += 1;
-      loaderBar.style.width = width + "%";
-      if(width >= 100){
-        clearInterval(interval);
-        window.location.href = url;
-      }
-    }, 30);
+    const url=btn.getAttribute("href");
+    loader.style.display="flex";
+    loaderBar.style.width="0%";
+    let width=0;
+    const interval=setInterval(()=>{
+      width+=1;
+      loaderBar.style.width=width+"%";
+      if(width>=100){clearInterval(interval);window.location.href=url;}
+    },30);
   });
 });
 
@@ -201,30 +192,30 @@ window.addEventListener("pageshow",e=>{if(e.persisted)hideLoader();});
 
 // MÚSICA
 const backgroundMusic = document.getElementById("backgroundMusic");
-const musicToggle = document.getElementById("musicToggle");
-let musicPlaying = true;
-window.addEventListener("load",()=>{backgroundMusic.play().catch(()=>console.log("Interacción requerida para reproducir música"));});
-musicToggle.addEventListener("click",()=>{
-  if(musicPlaying){backgroundMusic.pause();musicPlaying=false;musicToggle.textContent="Encender Música";}
-  else{backgroundMusic.play();musicPlaying=true;musicToggle.textContent="Apagar Música";}
+let musicOn = true;
+backgroundMusic.volume = 0.3; 
+backgroundMusic.play().catch(()=>{}); // autoplay (puede pedir interacción en algunos navegadores)
+const musicToggleBtn = document.getElementById("musicToggleBtn");
+musicToggleBtn.addEventListener("click",()=>{
+  if(musicOn){backgroundMusic.pause(); musicOn=false; musicToggleBtn.textContent="Encender Música";}
+  else{backgroundMusic.play(); musicOn=true; musicToggleBtn.textContent="Apagar Música";}
 });
 
-// CAMBIAR COLOR
-const colorThemes = {
-  1:{primary:'#ff0033', secondary:'#ff66aa', bgStart:'#7f1d1d', bgEnd:'#000'},
-  2:{primary:'#00ff99', secondary:'#66ffcc', bgStart:'#001a00', bgEnd:'#004d00'},
-  3:{primary:'#00bfff', secondary:'#66e0ff', bgStart:'#001f3f', bgEnd:'#000814'},
-  4:{primary:'#cc00ff', secondary:'#ff66ff', bgStart:'#1a001f', bgEnd:'#000000'},
-  5:{primary:'#ff9900', secondary:'#ffd166', bgStart:'#331a00', bgEnd:'#000000'}
-};
-document.querySelectorAll('.colorBtn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const theme = colorThemes[btn.getAttribute('data-theme')];
-    document.documentElement.style.setProperty('--primary-color',theme.primary);
-    document.documentElement.style.setProperty('--secondary-color',theme.secondary);
-    document.documentElement.style.setProperty('--bg-gradient-start',theme.bgStart);
-    document.documentElement.style.setProperty('--bg-gradient-end',theme.bgEnd);
-  });
+// CAMBIAR COLORES
+const themeBtn = document.getElementById("themeBtn");
+const themes = [
+  {primary:"#ff0033", secondary:"#ff66aa", bgStart:"#7f1d1d", bgEnd:"#000"},
+  {primary:"#00ff99", secondary:"#33ffcc", bgStart:"#003300", bgEnd:"#001100"},
+  {primary:"#ffcc00", secondary:"#ffaa00", bgStart:"#331a00", bgEnd:"#000000"}
+];
+let themeIndex=0;
+themeBtn.addEventListener("click",()=>{
+  themeIndex=(themeIndex+1)%themes.length;
+  const t=themes[themeIndex];
+  document.documentElement.style.setProperty('--primary-color',t.primary);
+  document.documentElement.style.setProperty('--secondary-color',t.secondary);
+  document.documentElement.style.setProperty('--bg-gradient-start',t.bgStart);
+  document.documentElement.style.setProperty('--bg-gradient-end',t.bgEnd);
 });
 </script>
 
