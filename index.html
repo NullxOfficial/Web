@@ -147,13 +147,37 @@ footer{
 
 <canvas id="particles"></canvas>
 
-<header>
-  <div class="top">
-    <img src="logo.png">
-    <span class="brand">BrusMods</span>
-  </div>
-</header>
+/* HEADER */
+header{
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(6px);
+  padding:14px 20px;
+  position:relative;
+  z-index:2;
+  border-bottom:1px solid rgba(255,0,51,.25);
+}
 
+/* CONTENEDOR */
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start; /* 👈 A LA IZQUIERDA */
+  gap:14px;
+}
+
+/* LOGO */
+.top img{
+  height:52px;   /* tamaño del logo */
+  width:auto;
+  display:block;
+}
+
+/* TEXTO */
+.brand{
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:1px;
+}
 <section class="hero">
   <h1>Bienvenido a BRUSMODS</h1>
   <p>Mods, herramientas y contenido exclusivo con estilo premium.</p>
