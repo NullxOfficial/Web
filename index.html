@@ -124,14 +124,14 @@ const closeMenu = document.getElementById("closeMenu");
 menuBtn.addEventListener("click",()=>sideMenu.classList.add("active"));
 closeMenu.addEventListener("click",()=>sideMenu.classList.remove("active"));
 
-/// MATRIX PARTICLES
+/// MATRIX PARTICLES (CORREGIDO)
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
 let particles = [];
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&£¥§";
 const fontSize = 16;
-const particleColor = "rgba(255, 40, 40, 0.9)"; // rojo matrix
+const particleColor = "rgba(255, 40, 40, 0.9)";
 
 function resize(){
   canvas.width = innerWidth;
@@ -140,33 +140,30 @@ function resize(){
 window.addEventListener("resize", resize);
 resize();
 
-// Crear partículas Matrix
 for(let i = 0; i < 140; i++){
   particles.push({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    vy: Math.random() * 2 + 1,
+    vy: Math.random() * 0.6 + 0.2, // LENTO
     value: chars[Math.floor(Math.random() * chars.length)]
   });
 }
 
 function animate(){
-  // Fondo negro con rastro
-  ctx.fillStyle = "rgba(0,0,0,0.08)";
+  // Fondo negro sólido
+  ctx.fillStyle = "rgba(0,0,0,0.25)";
   ctx.fillRect(0,0,canvas.width,canvas.height);
 
   ctx.font = fontSize + "px monospace";
-  ctx.shadowBlur = 12;
+  ctx.fillStyle = particleColor;
+  ctx.shadowBlur = 8;
   ctx.shadowColor = "red";
 
   particles.forEach(p => {
-    // Cambiar letra aleatoriamente
     p.value = chars[Math.floor(Math.random() * chars.length)];
-
-    ctx.fillStyle = particleColor;
     ctx.fillText(p.value, p.x, p.y);
 
-    p.y += p.vy * fontSize;
+    p.y += p.vy; // YA NO se multiplica por fontSize
 
     if(p.y > canvas.height){
       p.y = 0;
