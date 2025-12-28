@@ -257,7 +257,7 @@ const closeMenu = document.getElementById("closeMenu");
 menuBtn.addEventListener("click",()=>sideMenu.classList.add("active"));
 closeMenu.addEventListener("click",()=>sideMenu.classList.remove("active"));
 
- // PARTICULAS
+//PARTÍCULAS 
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
@@ -301,7 +301,7 @@ class Particle{
     ctx.translate(this.x, this.y);
     ctx.rotate(this.rotation * Math.PI / 180);
     ctx.fillStyle = `rgba(${color},${this.opacity})`;
-    ctx.strokeStyle = `rgba(${color},0.5)`;
+    ctx.strokeStyle = `rgba(${color},0.6)`;
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.rect(-this.size/2, -this.size/2, this.size, this.size);
@@ -311,13 +311,14 @@ class Particle{
   }
 }
 
-// crear partículas
 for(let i=0;i<PARTICLE_COUNT;i++){
   particles.push(new Particle());
 }
 
 function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+  // FONDO NEGRO FIJO
+  ctx.fillStyle = "rgba(0,0,0,1)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
 
   particles.forEach(p=>{
     p.update();
