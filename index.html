@@ -35,13 +35,16 @@ header {
 .top img { height: 58px; filter: drop-shadow(0 0 8px #0135FF); }
 .brand { font-size: 26px; font-weight: 900; letter-spacing: 1px; background: linear-gradient(90deg, #00aaff, #0135FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-/* MENÚ LATERAL */
+/* MENÚ BTN CON ANIMACIÓN A X */
 .menu-btn {
-  background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 6px;
+  background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 6px; position: relative; z-index: 101;
 }
 .menu-btn span { width: 32px; height: 3px; background: #00aaff; border-radius: 2px; transition: all 0.3s; }
-.menu-btn:hover span { background: #fff; }
+.menu-btn.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.menu-btn.active span:nth-child(2) { opacity: 0; transform: scale(0); }
+.menu-btn.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
+/* MENÚ LATERAL */
 .side-menu {
   position: fixed; top: 0; right: -320px; width: 320px; height: 100vh;
   background: rgba(5,5,30,0.94); backdrop-filter: blur(16px);
@@ -56,25 +59,29 @@ header {
 }
 .side-menu a:hover { color: #fff; background: rgba(1,53,255,0.15); transform: translateX(8px); }
 
-/* Botones ajustes */
-#musicToggleBtn, #colorToggleBtn {
-  width: 100%; padding: 14px 20px; margin: 12px 0; border: none; border-radius: 14px;
-  color: white; font-weight: 700; cursor: pointer; transition: all 0.35s;
-  display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 1rem;
-}
+/* Botón de música mejorado (sin emojis, con animación) */
 #musicToggleBtn {
-  background: linear-gradient(135deg, #0135FF, #0088ff);
-  box-shadow: 0 4px 15px rgba(1,53,255,0.5);
+  width: 100%; padding: 14px 20px; margin: 12px 0; border: none; border-radius: 14px;
+  background: linear-gradient(135deg, #0135FF, #0088ff); color: white; font-weight: 700;
+  cursor: pointer; transition: all 0.35s; box-shadow: 0 4px 15px rgba(1,53,255,0.5);
+  display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 1rem;
+  position: relative; overflow: hidden;
 }
-#musicToggleBtn.active {
-  animation: pulseGlowBtn 2s infinite alternate;
-  box-shadow: 0 0 25px #00aaff;
+#musicToggleBtn::before {
+  content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(255,255,255,0.2), transparent);
+  opacity: 0; transition: opacity 0.4s;
 }
-#colorToggleBtn {
-  background: linear-gradient(135deg, #aa00ff, #ff00aa);
-  box-shadow: 0 4px 15px rgba(170,0,255,0.4);
-}
+#musicToggleBtn:hover::before { opacity: 0.6; }
+#musicToggleBtn:hover { transform: translateY(-4px) scale(1.04); box-shadow: 0 10px 30px rgba(1,53,255,0.7); }
+#musicToggleBtn.active { animation: pulseGlowBtn 2s infinite alternate; }
 @keyframes pulseGlowBtn { 0% { box-shadow: 0 0 15px #00aaff; } 100% { box-shadow: 0 0 35px #00aaff; } }
+
+/* CLOSE MENU */
+.close-menu {
+  position: absolute; top: 20px; right: 25px; background: none; border: none; color: #00aaff; font-size: 2rem; font-weight: bold; cursor: pointer;
+  transition: all 0.3s;
+}
+.close-menu:hover { color: #fff; transform: scale(1.2); }
 
 /* HERO */
 .hero { position: relative; z-index: 2; text-align: center; padding: 140px 20px 80px; min-height: 70vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
@@ -85,7 +92,7 @@ header {
   background-size: 200% 100%; animation: shine 6s linear infinite;
   text-shadow: 0 0 30px rgba(0,170,255,0.6);
 }
-@keyframes shine { 0%, 100% { background-position: 0% } 50% { background-position: -200% } }
+@keyframes shine { 0% { background-position: 0% } 50% { background-position: -200% } 100% { background-position: 0% } }
 
 .hero p { font-size: 1.3rem; color: #b0e0ff; max-width: 600px; margin: 1.2rem auto; opacity: 0.95; }
 
@@ -94,7 +101,7 @@ header {
   position: relative; padding: 16px 40px; font-size: 1.2rem; font-weight: 700;
   color: #00aaff; text-decoration: none; border: 2px solid #00aaff; border-radius: 50px;
   background: rgba(1,53,255,0.08); overflow: hidden; transition: all 0.4s;
-  box-shadow: 0 0 20px rgba(0,170,255,0.4); display: inline-block;
+  box-shadow: 0 0 20px rgba(0,170,255,0.4); cursor: pointer; display: inline-block;
 }
 .btn-neon::before {
   content: ''; position: absolute; inset: -2px; background: linear-gradient(45deg, #0135FF, #00aaff, #40c4ff, #0135FF);
@@ -118,7 +125,7 @@ header {
 /* FOOTER */
 footer { text-align: center; padding: 40px 20px; font-size: 1rem; color: #40c4ff; opacity: 0.8; }
 
-/* LOADER */
+/* LOADER (mejorado con glow y rotación más chida) */
 #loader {
   position: fixed; inset: 0; background: rgba(0,0,0,0.96); display: none;
   align-items:center; justify-content:center; z-index:9999; backdrop-filter: blur(10px);
@@ -126,22 +133,24 @@ footer { text-align: center; padding: 40px 20px; font-size: 1rem; color: #40c4ff
 .loader-container { display: flex; flex-direction: column; align-items: center; gap: 30px; }
 .loader-text {
   color: #00aaff; font-weight: 700; font-size: 1.6rem; letter-spacing: 2px;
-  text-shadow: 0 0 20px #00aaff;
+  text-shadow: 0 0 20px #00aaff; animation: textGlow 2s infinite alternate;
 }
+@keyframes textGlow { 0% { text-shadow: 0 0 10px #00aaff; } 100% { text-shadow: 0 0 30px #00aaff; } }
 .spinner {
-  width: 80px; height: 80px; position: relative; transform-style: preserve-3d; perspective: 500px;
-  animation: spin-smooth 6s infinite linear;
+  width: 90px; height: 90px; position: relative; transform-style: preserve-3d; perspective: 600px;
+  animation: spin-smooth 5s infinite linear;
 }
 .spinner > div {
-  position: absolute; inset: 0; background: rgba(1,53,255,0.75); border: 3px solid #00aaff;
-  box-shadow: 0 0 25px #00aaff; backface-visibility: hidden;
+  position: absolute; inset: 0; background: linear-gradient(45deg, rgba(1,53,255,0.8), rgba(64,196,255,0.8));
+  border: 3px solid #00aaff;
+  box-shadow: 0 0 30px #00aaff, inset 0 0 15px #00aaff; backface-visibility: hidden;
 }
-.spinner > div:nth-child(1) { transform: rotateY(0deg) translateZ(40px); }
-.spinner > div:nth-child(2) { transform: rotateY(90deg) translateZ(40px); }
-.spinner > div:nth-child(3) { transform: rotateY(180deg) translateZ(40px); }
-.spinner > div:nth-child(4) { transform: rotateY(-90deg) translateZ(40px); }
-.spinner > div:nth-child(5) { transform: rotateX(90deg) translateZ(40px); }
-.spinner > div:nth-child(6) { transform: rotateX(-90deg) translateZ(40px); }
+.spinner > div:nth-child(1) { transform: rotateY(0deg) translateZ(45px); }
+.spinner > div:nth-child(2) { transform: rotateY(90deg) translateZ(45px); }
+.spinner > div:nth-child(3) { transform: rotateY(180deg) translateZ(45px); }
+.spinner > div:nth-child(4) { transform: rotateY(-90deg) translateZ(45px); }
+.spinner > div:nth-child(5) { transform: rotateX(90deg) translateZ(45px); }
+.spinner > div:nth-child(6) { transform: rotateX(-90deg) translateZ(45px); }
 @keyframes spin-smooth { from { transform: rotateX(0) rotateY(0); } to { transform: rotateX(360deg) rotateY(360deg); } }
 @keyframes glowing { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 </style>
@@ -160,7 +169,7 @@ footer { text-align: center; padding: 40px 20px; font-size: 1rem; color: #40c4ff
 </header>
 
 <div class="side-menu" id="sideMenu">
-  <button class="close-menu" id="closeMenu">Cerrar</button>
+  <button class="close-menu" id="closeMenu">✖</button>
   <h3>⚙️ Menú</h3>
   <a href="https://brusmods.github.io/Mi-p-gina-web/">Inicio</a>
   <a href="https://brusmods.github.io/En-mantenimiento-/">Mods VIP</a>
@@ -170,7 +179,6 @@ footer { text-align: center; padding: 40px 20px; font-size: 1rem; color: #40c4ff
   <button id="musicToggleBtn">
     <span id="musicText">Apagar Música</span>
   </button>
-  <button id="colorToggleBtn">Cambiar Colores</button>
 </div>
 
 <section class="hero">
@@ -210,12 +218,12 @@ footer { text-align: center; padding: 40px 20px; font-size: 1rem; color: #40c4ff
     <div class="spinner">
       <div></div><div></div><div></div><div></div><div></div><div></div>
     </div>
-    <div class="loader-text">Cargando experiencia BRUSMODS...</div>
+    <div class="loader-text">Cargando...</div>
   </div>
 </div>
 
 <script>
-// PARTICULAS (hexágonos)
+// PARTICULAS
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 let particles = [];
@@ -268,12 +276,18 @@ function animateParticles() {
 }
 animateParticles();
 
-// MENÚ LATERAL (arreglado cierre)
+// MENÚ LATERAL
 const menuBtn = document.getElementById("menuBtn");
 const sideMenu = document.getElementById("sideMenu");
 const closeMenu = document.getElementById("closeMenu");
-menuBtn.addEventListener("click", () => sideMenu.classList.add("active"));
-closeMenu.addEventListener("click", () => sideMenu.classList.remove("active"));
+menuBtn.addEventListener("click", () => {
+  sideMenu.classList.add("active");
+  menuBtn.classList.add("active");
+});
+closeMenu.addEventListener("click", () => {
+  sideMenu.classList.remove("active");
+  menuBtn.classList.remove("active");
+});
 
 // MÚSICA
 const backgroundMusic = document.getElementById("backgroundMusic");
@@ -320,15 +334,15 @@ document.querySelectorAll(".loader-btn").forEach(btn => {
 });
 window.addEventListener("pageshow", () => loader.style.display = "none");
 
-// POPUP KEY (Mods VIP)
+// POPUP KEY (Mods VIP) con animación chida
 const validKeys = ["BRprogamer","Brusmods45gg","Brusmods23gg","BrusmodsVIP"];
 const secretLink = "https://brusmods.github.io/En-mantenimiento-/";
 
 function showKeyPopup() {
   const overlay = document.createElement("div");
-  overlay.style.cssText = "position:fixed;inset:0;background:rgba(1,53,255,0.88);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(6px);";
+  overlay.style.cssText = "position:fixed;inset:0;background:rgba(1,53,255,0.88);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(6px);opacity:0;transition:opacity 0.4s;";
   const box = document.createElement("div");
-  box.style.cssText = "background:rgba(10,10,40,0.9);backdrop-filter:blur(12px);padding:35px;border:2px solid #0135FF;border-radius:20px;text-align:center;width:340px;max-width:92%;box-shadow:0 10px 30px rgba(1,53,255,0.4);";
+  box.style.cssText = "background:rgba(10,10,40,0.9);backdrop-filter:blur(12px);padding:35px;border:2px solid #0135FF;border-radius:20px;text-align:center;width:340px;max-width:92%;box-shadow:0 10px 30px rgba(1,53,255,0.4);transform:scale(0.8);opacity:0;transition:all 0.4s ease-in-out;";
   box.innerHTML = `
     <h2 style="color:#00aaff;margin:0 0 20px;font-size:22px;">Acceso a Mods VIP</h2>
     <p style="color:#ddd;margin:0 0 25px;font-size:15px;line-height:1.5;">Ingresa tu key para desbloquear contenido exclusivo</p>
@@ -340,6 +354,8 @@ function showKeyPopup() {
   `;
   overlay.appendChild(box); document.body.appendChild(overlay);
 
+  setTimeout(() => { overlay.style.opacity = 1; box.style.transform = "scale(1)"; box.style.opacity = 1; }, 10);
+
   document.getElementById("validateKeyBtn").onclick = () => {
     const key = document.getElementById("keyInput").value.trim();
     if (validKeys.includes(key)) {
@@ -350,21 +366,25 @@ function showKeyPopup() {
       alert("❌ Key incorrecta");
     }
   };
-  document.getElementById("closeKeyBtn").onclick = () => overlay.remove();
+  document.getElementById("closeKeyBtn").onclick = () => {
+    overlay.style.opacity = 0;
+    box.style.transform = "scale(0.8)"; box.style.opacity = 0;
+    setTimeout(() => overlay.remove(), 400);
+  };
 }
 
 document.querySelectorAll(".vip-btn").forEach(btn => {
   btn.onclick = e => { e.preventDefault(); showKeyPopup(); };
 });
 
-// POPUP WHATSAPP
+// POPUP WHATSAPP con animación chida
 const whatsappLink = "https://chat.whatsapp.com/CkN3rWTIQeHF293yhpWkLb";
 
 function showWhatsappPopup() {
   const overlay = document.createElement("div");
-  overlay.style.cssText = "position:fixed;inset:0;background:rgba(1,53,255,0.88);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(6px);";
+  overlay.style.cssText = "position:fixed;inset:0;background:rgba(1,53,255,0.88);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(6px);opacity:0;transition:opacity 0.4s;";
   const box = document.createElement("div");
-  box.style.cssText = "background:rgba(10,10,40,0.9);backdrop-filter:blur(12px);padding:35px;border:2px solid #0135FF;border-radius:20px;text-align:center;width:360px;max-width:92%;box-shadow:0 10px 30px rgba(1,53,255,0.4);";
+  box.style.cssText = "background:rgba(10,10,40,0.9);backdrop-filter:blur(12px);padding:35px;border:2px solid #0135FF;border-radius:20px;text-align:center;width:360px;max-width:92%;box-shadow:0 10px 30px rgba(1,53,255,0.4);transform:scale(0.8);opacity:0;transition:all 0.4s ease-in-out;";
   box.innerHTML = `
     <h2 style="color:#00aaff;margin:0 0 20px;font-size:22px;">¿Hablas español?</h2>
     <p style="color:#ddd;margin:0 0 28px;font-size:15px;line-height:1.6;">
@@ -378,21 +398,18 @@ function showWhatsappPopup() {
   `;
   overlay.appendChild(box); document.body.appendChild(overlay);
 
+  setTimeout(() => { overlay.style.opacity = 1; box.style.transform = "scale(1)"; box.style.opacity = 1; }, 10);
+
   document.getElementById("confirmSpanish").onclick = () => window.location.href = whatsappLink;
-  document.getElementById("closePopup").onclick = () => overlay.remove();
+  document.getElementById("closePopup").onclick = () => {
+    overlay.style.opacity = 0;
+    box.style.transform = "scale(0.8)"; box.style.opacity = 0;
+    setTimeout(() => overlay.remove(), 400);
+  };
 }
 
 document.querySelectorAll(".whatsapp-btn").forEach(btn => {
   btn.onclick = e => { e.preventDefault(); showWhatsappPopup(); };
-});
-
-// CAMBIAR COLORES (opcional, lo dejo pero puedes quitarlo si no lo usas)
-const colors = ["#0135FF","#00aaff","#00ff55","#aa00ff"];
-let currentColor = 0;
-document.getElementById("colorToggleBtn").addEventListener("click", () => {
-  currentColor = (currentColor + 1) % colors.length;
-  let newColor = colors[currentColor];
-  document.body.style.background = `radial-gradient(circle at top, ${newColor} 0%, #001122 70%, #000 100%)`;
 });
 </script>
 </body>
