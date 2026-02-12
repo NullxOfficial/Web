@@ -22,7 +22,6 @@ canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 header {
   background: rgba(0,0,0,0.7);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   padding: 16px 24px;
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -41,17 +40,15 @@ header {
   background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 6px;
 }
 .menu-btn span { width: 32px; height: 3px; background: #00aaff; border-radius: 2px; transition: all 0.3s; }
-.menu-btn:hover span:nth-child(1) { transform: translateY(3px) rotate(45deg); }
-.menu-btn:hover span:nth-child(2) { opacity: 0; }
-.menu-btn:hover span:nth-child(3) { transform: translateY(-3px) rotate(-45deg); }
+.menu-btn:hover span { background: #fff; }
 
 .side-menu {
-  position: fixed; inset: 0 0 0 auto; width: 300px;
-  background: rgba(5,5,30,0.92); backdrop-filter: blur(16px);
-  transform: translateX(100%); transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
-  z-index: 99; padding: 80px 30px 30px; border-left: 1px solid rgba(1,53,255,0.3);
+  position: fixed; top: 0; right: -320px; width: 320px; height: 100vh;
+  background: rgba(5,5,30,0.94); backdrop-filter: blur(16px);
+  transition: right 0.45s cubic-bezier(0.16,1,0.3,1);
+  z-index: 99; padding: 80px 30px 30px; border-left: 1px solid rgba(1,53,255,0.35);
 }
-.side-menu.active { transform: translateX(0); }
+.side-menu.active { right: 0; }
 .side-menu h3 { color: #00aaff; font-size: 1.4rem; margin-bottom: 1.5rem; letter-spacing: 1px; }
 .side-menu a {
   display: block; color: #ddd; text-decoration: none; margin: 1.2rem 0; font-size: 1.1rem; font-weight: 500;
@@ -61,34 +58,43 @@ header {
 
 /* Botones ajustes */
 #musicToggleBtn, #colorToggleBtn {
-  width: 100%; padding: 14px; margin: 12px 0; border: none; border-radius: 12px;
-  background: linear-gradient(135deg, #0135FF, #0088ff); color: white; font-weight: 700;
-  cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(1,53,255,0.4);
+  width: 100%; padding: 14px 20px; margin: 12px 0; border: none; border-radius: 14px;
+  color: white; font-weight: 700; cursor: pointer; transition: all 0.35s;
+  display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 1rem;
 }
-#musicToggleBtn:hover, #colorToggleBtn:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 8px 25px rgba(1,53,255,0.6); }
+#musicToggleBtn {
+  background: linear-gradient(135deg, #0135FF, #0088ff);
+  box-shadow: 0 4px 15px rgba(1,53,255,0.5);
+}
+#musicToggleBtn.active {
+  animation: pulseGlowBtn 2s infinite alternate;
+  box-shadow: 0 0 25px #00aaff;
+}
+#colorToggleBtn {
+  background: linear-gradient(135deg, #aa00ff, #ff00aa);
+  box-shadow: 0 4px 15px rgba(170,0,255,0.4);
+}
+@keyframes pulseGlowBtn { 0% { box-shadow: 0 0 15px #00aaff; } 100% { box-shadow: 0 0 35px #00aaff; } }
 
 /* HERO */
-.hero {
-  position: relative; z-index: 2; text-align: center; padding: 140px 20px 80px; min-height: 70vh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-}
+.hero { position: relative; z-index: 2; text-align: center; padding: 140px 20px 80px; min-height: 70vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .hero h1 {
-  font-size: clamp(2.6rem, 8vw, 4.5rem); font-weight: 900; margin: 0;
+  font-size: clamp(2.8rem, 9vw, 5rem); font-weight: 900; margin: 0;
   background: linear-gradient(90deg, #00aaff, #ffffff, #00aaff);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-size: 200% 100%; animation: shine 6s linear infinite;
   text-shadow: 0 0 30px rgba(0,170,255,0.6);
 }
-@keyframes shine { 0% { background-position: 0% } 100% { background-position: -200% } }
+@keyframes shine { 0%, 100% { background-position: 0% } 50% { background-position: -200% } }
 
 .hero p { font-size: 1.3rem; color: #b0e0ff; max-width: 600px; margin: 1.2rem auto; opacity: 0.95; }
 
-/* BOTÓN NEON PREMIUM */
+/* BOTÓN NEON */
 .btn-neon {
   position: relative; padding: 16px 40px; font-size: 1.2rem; font-weight: 700;
   color: #00aaff; text-decoration: none; border: 2px solid #00aaff; border-radius: 50px;
   background: rgba(1,53,255,0.08); overflow: hidden; transition: all 0.4s;
-  box-shadow: 0 0 20px rgba(0,170,255,0.4); cursor: pointer; display: inline-block;
+  box-shadow: 0 0 20px rgba(0,170,255,0.4); display: inline-block;
 }
 .btn-neon::before {
   content: ''; position: absolute; inset: -2px; background: linear-gradient(45deg, #0135FF, #00aaff, #40c4ff, #0135FF);
@@ -109,13 +115,27 @@ header {
 }
 .card:hover { transform: translateY(-12px) scale(1.04); box-shadow: 0 20px 60px rgba(1,53,255,0.35); }
 
-/* FOOTER & LOADER (mismo pero más pulido) */
+/* FOOTER */
 footer { text-align: center; padding: 40px 20px; font-size: 1rem; color: #40c4ff; opacity: 0.8; }
 
-/* LOADER (más suave) */
-#loader { position: fixed; inset: 0; background: rgba(0,0,0,0.96); display: none; align-items:center;justify-content:center; z-index:9999; backdrop-filter: blur(10px); }
-.spinner { width: 80px; height: 80px; position: relative; transform-style: preserve-3d; perspective: 500px; animation: spin-smooth 6s infinite linear; }
-.spinner > div { position: absolute; inset: 0; background: rgba(1,53,255,0.75); border: 3px solid #00aaff; box-shadow: 0 0 25px #00aaff; backface-visibility: hidden; }
+/* LOADER */
+#loader {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.96); display: none;
+  align-items:center; justify-content:center; z-index:9999; backdrop-filter: blur(10px);
+}
+.loader-container { display: flex; flex-direction: column; align-items: center; gap: 30px; }
+.loader-text {
+  color: #00aaff; font-weight: 700; font-size: 1.6rem; letter-spacing: 2px;
+  text-shadow: 0 0 20px #00aaff;
+}
+.spinner {
+  width: 80px; height: 80px; position: relative; transform-style: preserve-3d; perspective: 500px;
+  animation: spin-smooth 6s infinite linear;
+}
+.spinner > div {
+  position: absolute; inset: 0; background: rgba(1,53,255,0.75); border: 3px solid #00aaff;
+  box-shadow: 0 0 25px #00aaff; backface-visibility: hidden;
+}
 .spinner > div:nth-child(1) { transform: rotateY(0deg) translateZ(40px); }
 .spinner > div:nth-child(2) { transform: rotateY(90deg) translateZ(40px); }
 .spinner > div:nth-child(3) { transform: rotateY(180deg) translateZ(40px); }
@@ -123,6 +143,7 @@ footer { text-align: center; padding: 40px 20px; font-size: 1rem; color: #40c4ff
 .spinner > div:nth-child(5) { transform: rotateX(90deg) translateZ(40px); }
 .spinner > div:nth-child(6) { transform: rotateX(-90deg) translateZ(40px); }
 @keyframes spin-smooth { from { transform: rotateX(0) rotateY(0); } to { transform: rotateX(360deg) rotateY(360deg); } }
+@keyframes glowing { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 </style>
 </head>
 <body>
@@ -139,14 +160,16 @@ footer { text-align: center; padding: 40px 20px; font-size: 1rem; color: #40c4ff
 </header>
 
 <div class="side-menu" id="sideMenu">
-  <button class="close-menu" id="closeMenu">✖</button>
+  <button class="close-menu" id="closeMenu">Cerrar</button>
   <h3>⚙️ Menú</h3>
   <a href="https://brusmods.github.io/Mi-p-gina-web/">Inicio</a>
   <a href="https://brusmods.github.io/En-mantenimiento-/">Mods VIP</a>
   <a href="https://brusmods.github.io/Mi-p-gina-web/">Herramientas</a>
   <a href="https://chat.whatsapp.com/CkN3rWTIQeHF293yhpWkLb">Canal WhatsApp</a>
   <h3>⚙️ Ajustes</h3>
-  <button id="musicToggleBtn">Apagar Música</button>
+  <button id="musicToggleBtn">
+    <span id="musicText">Apagar Música</span>
+  </button>
   <button id="colorToggleBtn">Cambiar Colores</button>
 </div>
 
@@ -192,7 +215,7 @@ footer { text-align: center; padding: 40px 20px; font-size: 1rem; color: #40c4ff
 </div>
 
 <script>
-// Partículas hexágonos con glow
+// PARTICULAS (hexágonos)
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 let particles = [];
@@ -202,9 +225,7 @@ function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
 window.addEventListener("resize", resize); resize();
 
 class HexParticle {
-  constructor() {
-    this.reset();
-  }
+  constructor() { this.reset(); }
   reset() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
@@ -247,31 +268,132 @@ function animateParticles() {
 }
 animateParticles();
 
-// Efecto click partículas explosivas
-document.addEventListener("click", e => {
-  for (let i = 0; i < 18; i++) {
-    const p = document.createElement("div");
-    p.style.cssText = `
-      position:fixed; left:\( {e.clientX}px; top: \){e.clientY}px; width:6px; height:6px;
-      border-radius:50%; background:#00aaff; pointer-events:none; box-shadow:0 0 12px #00aaff;
-      transform:translate(-50%,-50%);
-    `;
-    const angle = Math.random() * Math.PI * 2;
-    const dist = Math.random() * 80 + 40;
-    p.animate([
-      { transform: `translate(-50%,-50%) translate(0,0)`, opacity:1 },
-      { transform: `translate(-50%,-50%) translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px)`, opacity:0 }
-    ], { duration: 700, easing: "ease-out" });
-    document.body.appendChild(p);
-    setTimeout(() => p.remove(), 800);
+// MENÚ LATERAL (arreglado cierre)
+const menuBtn = document.getElementById("menuBtn");
+const sideMenu = document.getElementById("sideMenu");
+const closeMenu = document.getElementById("closeMenu");
+menuBtn.addEventListener("click", () => sideMenu.classList.add("active"));
+closeMenu.addEventListener("click", () => sideMenu.classList.remove("active"));
+
+// MÚSICA
+const backgroundMusic = document.getElementById("backgroundMusic");
+const musicBtn = document.getElementById("musicToggleBtn");
+const musicText = document.getElementById("musicText");
+backgroundMusic.volume = 0.3;
+let musicOn = true;
+let musicStarted = false;
+
+menuBtn.addEventListener("click", () => {
+  sideMenu.classList.add("active");
+  if (!musicStarted) {
+    backgroundMusic.play().catch(() => {});
+    musicStarted = true;
+    musicBtn.classList.add("active");
+    musicText.textContent = "Apagar Música";
   }
 });
 
-// Resto del script (menú, loader, música, popups, keys, whatsapp) se mantiene igual que tu versión
-// ... (pega aquí el <script> grande que ya tenías con los popups, música, keys, etc.)
+musicBtn.addEventListener("click", () => {
+  if (musicOn) {
+    backgroundMusic.pause();
+    musicOn = false;
+    musicText.textContent = "Encender Música";
+    musicBtn.classList.remove("active");
+  } else {
+    backgroundMusic.play();
+    musicOn = true;
+    musicText.textContent = "Apagar Música";
+    musicBtn.classList.add("active");
+  }
+});
+
+// LOADER
+const loader = document.getElementById("loader");
+document.querySelectorAll(".loader-btn").forEach(btn => {
+  btn.addEventListener("click", e => {
+    const url = btn.getAttribute("href");
+    if (!url) return;
+    e.preventDefault();
+    loader.style.display = "flex";
+    setTimeout(() => window.location.href = url, 5000);
+  });
+});
+window.addEventListener("pageshow", () => loader.style.display = "none");
+
+// POPUP KEY (Mods VIP)
+const validKeys = ["BRprogamer","Brusmods45gg","Brusmods23gg","BrusmodsVIP"];
+const secretLink = "https://brusmods.github.io/En-mantenimiento-/";
+
+function showKeyPopup() {
+  const overlay = document.createElement("div");
+  overlay.style.cssText = "position:fixed;inset:0;background:rgba(1,53,255,0.88);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(6px);";
+  const box = document.createElement("div");
+  box.style.cssText = "background:rgba(10,10,40,0.9);backdrop-filter:blur(12px);padding:35px;border:2px solid #0135FF;border-radius:20px;text-align:center;width:340px;max-width:92%;box-shadow:0 10px 30px rgba(1,53,255,0.4);";
+  box.innerHTML = `
+    <h2 style="color:#00aaff;margin:0 0 20px;font-size:22px;">Acceso a Mods VIP</h2>
+    <p style="color:#ddd;margin:0 0 25px;font-size:15px;line-height:1.5;">Ingresa tu key para desbloquear contenido exclusivo</p>
+    <input type="text" id="keyInput" placeholder="Escribe tu key aquí" style="padding:14px;width:100%;border-radius:10px;border:1px solid #00aaff;background:rgba(255,255,255,0.08);color:#fff;font-size:15px;margin-bottom:20px;outline:none;">
+    <div style="display:flex;gap:15px;justify-content:center;">
+      <button id="validateKeyBtn" style="padding:14px 28px;border:none;border-radius:10px;background:#00aaff;color:white;font-weight:600;cursor:pointer;font-size:15px;transition:all 0.2s;">Validar</button>
+      <button id="closeKeyBtn" style="padding:14px 28px;border:none;border-radius:10px;background:#444;color:white;font-weight:600;cursor:pointer;font-size:15px;transition:all 0.2s;">Cerrar</button>
+    </div>
+  `;
+  overlay.appendChild(box); document.body.appendChild(overlay);
+
+  document.getElementById("validateKeyBtn").onclick = () => {
+    const key = document.getElementById("keyInput").value.trim();
+    if (validKeys.includes(key)) {
+      alert("✅ Acceso desbloqueado!");
+      overlay.remove();
+      window.location.href = secretLink;
+    } else {
+      alert("❌ Key incorrecta");
+    }
+  };
+  document.getElementById("closeKeyBtn").onclick = () => overlay.remove();
+}
+
+document.querySelectorAll(".vip-btn").forEach(btn => {
+  btn.onclick = e => { e.preventDefault(); showKeyPopup(); };
+});
+
+// POPUP WHATSAPP
+const whatsappLink = "https://chat.whatsapp.com/CkN3rWTIQeHF293yhpWkLb";
+
+function showWhatsappPopup() {
+  const overlay = document.createElement("div");
+  overlay.style.cssText = "position:fixed;inset:0;background:rgba(1,53,255,0.88);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(6px);";
+  const box = document.createElement("div");
+  box.style.cssText = "background:rgba(10,10,40,0.9);backdrop-filter:blur(12px);padding:35px;border:2px solid #0135FF;border-radius:20px;text-align:center;width:360px;max-width:92%;box-shadow:0 10px 30px rgba(1,53,255,0.4);";
+  box.innerHTML = `
+    <h2 style="color:#00aaff;margin:0 0 20px;font-size:22px;">¿Hablas español?</h2>
+    <p style="color:#ddd;margin:0 0 28px;font-size:15px;line-height:1.6;">
+      Solo usuarios que hablen <b>español</b> pueden unirse al canal de WhatsApp.<br><br>
+      Si hablas inglés o portugués, únete al canal de <span style="color:#40c4ff;font-weight:600;">Telegram</span>.
+    </p>
+    <div style="display:flex;gap:18px;justify-content:center;">
+      <button id="confirmSpanish" style="padding:14px 40px;border:none;border-radius:10px;background:#00aaff;color:white;font-weight:700;cursor:pointer;font-size:16px;box-shadow:0 4px 15px rgba(0,170,255,0.5);transition:all 0.2s;">SÍ, hablo español</button>
+      <button id="closePopup" style="padding:14px 40px;border:none;border-radius:10px;background:#444;color:white;font-weight:600;cursor:pointer;font-size:15px;transition:all 0.2s;">Cerrar</button>
+    </div>
+  `;
+  overlay.appendChild(box); document.body.appendChild(overlay);
+
+  document.getElementById("confirmSpanish").onclick = () => window.location.href = whatsappLink;
+  document.getElementById("closePopup").onclick = () => overlay.remove();
+}
+
+document.querySelectorAll(".whatsapp-btn").forEach(btn => {
+  btn.onclick = e => { e.preventDefault(); showWhatsappPopup(); };
+});
+
+// CAMBIAR COLORES (opcional, lo dejo pero puedes quitarlo si no lo usas)
+const colors = ["#0135FF","#00aaff","#00ff55","#aa00ff"];
+let currentColor = 0;
+document.getElementById("colorToggleBtn").addEventListener("click", () => {
+  currentColor = (currentColor + 1) % colors.length;
+  let newColor = colors[currentColor];
+  document.body.style.background = `radial-gradient(circle at top, ${newColor} 0%, #001122 70%, #000 100%)`;
+});
 </script>
-
-<!-- Aquí pega el resto de tu <script> original con los event listeners de menú, loader, música, popups, etc. -->
-
 </body>
 </html>
